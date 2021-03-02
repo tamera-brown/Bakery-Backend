@@ -21,7 +21,7 @@ public class PostgresDessertDAO implements DessertDAO {
 
     @Override
     public List<Dessert> getAllDesserts() {
-        List<Dessert> allDesserts=template.query("select \"dessertId\",\"dessertName\",\"dessertDescription\", \"dessertPrice\" from \"Desserts\";",new DessertMapper());
+        List<Dessert> allDesserts=template.query("select \"dessertId\",\"dessertName\",\"dessertDescription\", \"dessertPrice\",\"dessertImg\" from \"Desserts\";",new DessertMapper());
         return allDesserts;
     }
 
@@ -39,8 +39,8 @@ public class PostgresDessertDAO implements DessertDAO {
         if(dessert.getPrice()==null){
             throw new NullDessertPriceException("Cannot add a dessert with null price");
         }
-        Integer dessertId=template.queryForObject("insert into \"Desserts\" (\"dessertName\",\"dessertDescription\",\"dessertPrice\") values(?,?,?) returning \"dessertId\";\n" +
-                "\n",new IntegerMapper("dessertId"),dessert.getName(),dessert.getDescription(),dessert.getPrice()) ;
+        Integer dessertId=template.queryForObject("insert into \"Desserts\" (\"dessertName\",\"dessertDescription\",\"dessertPrice\",\"dessertImg\") values(?,?,?,?) returning \"dessertId\";\n" +
+                "\n",new IntegerMapper("dessertId"),dessert.getName(),dessert.getDescription(),dessert.getPrice(),dessert.getImage()) ;
 
         dessert.setDessertId(dessertId);
 
@@ -53,19 +53,20 @@ public class PostgresDessertDAO implements DessertDAO {
             throw new NullDessertIdException("Cannot get dessert with null Id");
         }
 
-        Dessert retreived=template.queryForObject("select \"dessertId\", \"dessertName\", \"dessertDescription\", \"dessertPrice\" from \"Desserts\" where \"dessertId\"='"+dessertId+"'",new DessertMapper());
+        Dessert retreived=template.queryForObject("select \"dessertId\", \"dessertName\", \"dessertDescription\", \"dessertPrice\", \"dessertImg\" from \"Desserts\" where \"dessertId\"='"+dessertId+"'",new DessertMapper());
 
         return retreived;
 
     }
 
     @Override
-    public int editDessert(Integer dessertId, Dessert editdessert) throws NullDessertIdException, NullDessertObjectException, NullDessertDescriptionException,NulllDessertNameException,NullDessertPriceException{
-        if(dessertId==null){
-            throw new NullDessertIdException("Cannot edit dessert with null id");
-        }
+    public int editDessert( Dessert editdessert) throws NullDessertIdException, NullDessertObjectException, NullDessertDescriptionException,NulllDessertNameException,NullDessertPriceException{
+
         if(editdessert==null){
             throw new NullDessertObjectException("Cannot edit dessert with null dessert");
+        }
+        if(editdessert.getDessertId()==null){
+            throw new NullDessertIdException("Cannot edit dessert with null id");
         }
         if(editdessert.getDescription()==null){
             throw new NullDessertDescriptionException("Cannot edit dessert with null description");
@@ -77,10 +78,10 @@ public class PostgresDessertDAO implements DessertDAO {
             throw new NullDessertPriceException("Cannot edit dessert with null price");
         }
         int edited=template.update("update \"Desserts\"\n" +
-                "set \"dessertName\"=?, \"dessertDescription\"=?, \"dessertPrice\"=? \n" +
+                "set \"dessertName\"=?, \"dessertDescription\"=?, \"dessertPrice\"=?, \"dessertImg\"=? \n" +
                 "where \"dessertId\"=?;",
 
-                editdessert.getName(),editdessert.getDescription(),editdessert.getPrice(),dessertId);
+                editdessert.getName(),editdessert.getDescription(),editdessert.getPrice(),editdessert.getImage(),editdessert.getDessertId());
 
         return edited;
 

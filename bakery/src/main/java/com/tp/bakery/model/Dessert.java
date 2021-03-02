@@ -5,6 +5,7 @@ public class Dessert {
     String name;
     String description;
     Double price;
+    String Image;
 
 
 
@@ -15,6 +16,7 @@ public class Dessert {
         this.name= that.name;
         this.description = that.description;
         this.price=that.price;
+        this.Image=that.Image;
     }
 
     public Integer getDessertId() {
@@ -47,5 +49,13 @@ public class Dessert {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String image) {
+        Image = image;
     }
 }

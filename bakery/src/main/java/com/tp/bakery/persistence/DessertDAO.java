@@ -12,7 +12,7 @@ public interface DessertDAO {
 
     Dessert getDessertById(Integer dessertId) throws NullDessertIdException, InvaildDessertIdException;
 
-    int editDessert(Integer dessertId, Dessert editDessert) throws NullDessertIdException, NullDessertObjectException, NulllDessertNameException, NullDessertDescriptionException, NullDessertPriceException;
+    int editDessert( Dessert editDessert) throws NullDessertIdException, NullDessertObjectException, NulllDessertNameException, NullDessertDescriptionException, NullDessertPriceException;
 
     int deleteDessert(Integer dessertId) throws NullDessertIdException;
 

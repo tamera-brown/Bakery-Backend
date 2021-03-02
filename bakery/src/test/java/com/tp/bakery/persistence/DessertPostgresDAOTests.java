@@ -107,7 +107,7 @@ public class DessertPostgresDAOTests {
             edit.setDescription("White Icing");
             edit.setPrice(24.00);
 
-            int returned = toTest.editDessert(edit.getDessertId(), edit);
+            int returned = toTest.editDessert(edit);
 
             assertEquals(1, returned);
             assertEquals("Yellow Cake", toTest.getAllDesserts().get(0).getName());
@@ -124,33 +124,35 @@ public class DessertPostgresDAOTests {
         Dessert test= toTest.getDessertById(1);
         test.setName("Red Velvet Cake");
         test.setDescription("White Icing");
-        assertThrows(NullDessertIdException.class,()->toTest.editDessert(null,test));
+        test.setDessertId(null);
+        assertThrows(NullDessertIdException.class,()->toTest.editDessert(test));
     }
     @Test
     public void editDessertNullDessertObject(){
-        assertThrows(NullDessertObjectException.class,()->toTest.editDessert(1,null));
+        assertThrows(NullDessertObjectException.class,()->toTest.editDessert(null));
     }
     @Test
     public void editDessertNullDessertName(){
         Dessert test=toTest.getAllDesserts().get(0);
         test.setName(null);
         test.setDescription("Good");
-        assertThrows(NulllDessertNameException.class,()->toTest.editDessert(1,test));
+        assertThrows(NulllDessertNameException.class,()->toTest.editDessert(test));
     }
     @Test
     public void editDessertNullDescription(){
         Dessert test=toTest.getAllDesserts().get(0);
         test.setName("Strawberry Shortcake");
         test.setDescription(null);
-        assertThrows(NullDessertDescriptionException.class,()->toTest.editDessert(1,test));
+        assertThrows(NullDessertDescriptionException.class,()->toTest.editDessert(test));
     }
     @Test
     public void editDeesertNullPrice(){
         Dessert test=new Dessert();
+        test.setDessertId(1);
         test.setName("Cookie Cake");
         test.setDescription("Yummy");
         test.setPrice(null);
-        assertThrows(NullDessertPriceException.class,()->toTest.editDessert(1,test));
+        assertThrows(NullDessertPriceException.class,()->toTest.editDessert(test));
     }
 
 

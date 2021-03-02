@@ -41,9 +41,9 @@ public class DessertController {
         }
 
     }
-    @PutMapping("/editDessert/{dessertId}")
-    public int editDessert(@PathVariable Integer dessertId, @RequestBody Dessert dessert) throws NullDessertIdException, NullDessertObjectException, NulllDessertNameException, NullDessertDescriptionException, NullDessertPriceException{
-       return service.editDessert(dessertId,dessert);
+    @PutMapping("/editDessert")
+    public int editDessert(  @RequestBody Dessert dessert) throws NullDessertIdException, NullDessertObjectException, NulllDessertNameException, NullDessertDescriptionException, NullDessertPriceException{
+       return service.editDessert(dessert);
 
     }
     @DeleteMapping("/deleteDessert/{dessertId}")

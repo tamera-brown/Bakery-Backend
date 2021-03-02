@@ -34,8 +34,8 @@ public class BakeryService {
     }
 
 
-    public int editDessert(Integer dessertId, Dessert dessert) throws NullDessertIdException, NullDessertObjectException,NulllDessertNameException, NullDessertDescriptionException,NullDessertPriceException {
-        return Dessertdao.editDessert(dessertId,dessert);
+    public int editDessert( Dessert dessert) throws NullDessertIdException, NullDessertObjectException,NulllDessertNameException, NullDessertDescriptionException,NullDessertPriceException {
+        return Dessertdao.editDessert(dessert);
     }
 
     public int deleteDessert(Integer dessertId) throws NullDessertIdException {

@@ -68,7 +68,7 @@ public class DessertInMemDAO implements DessertDAO {
     }
 
     @Override
-    public int editDessert(Integer dessertId, Dessert editDessert) {
+    public int editDessert( Dessert editDessert) {
         return 0;
     }
 
