@@ -3,7 +3,7 @@ package com.tp.bakery.model;
 public class Dessert {
     Integer dessertId;
     String name;
-    String Description;
+    String description;
     Double price;
 
 
@@ -13,7 +13,7 @@ public class Dessert {
     public Dessert(Dessert that){
         this.dessertId=that.dessertId;
         this.name= that.name;
-        this.Description= that.Description;
+        this.description = that.description;
         this.price=that.price;
     }
 
@@ -34,11 +34,11 @@ public class Dessert {
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String Description) {
-        this.Description = Description;
+        this.description = Description;
     }
 
     public Double getPrice() {

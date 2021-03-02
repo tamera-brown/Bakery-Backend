@@ -4,6 +4,7 @@ import com.tp.bakery.execptions.*;
 import com.tp.bakery.model.*;
 import com.tp.bakery.service.BakeryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http;//localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 public class DessertController {
 
     @Autowired
@@ -30,10 +31,15 @@ public class DessertController {
 
 
     @PostMapping("/addDessert")
-    public ResponseEntity addDessert(@RequestBody Dessert dessert) throws NullDessertObjectException, NulllDessertNameException, NullDessertDescriptionException, NullDessertPriceException {
+    public ResponseEntity addDessert(@RequestBody Dessert dessert) {
+        try {
+            Dessert newDessert = service.addDessert(dessert);
+           return ResponseEntity.ok(newDessert);
 
-       Dessert newDessert=service.addDessert(dessert);
-       return ResponseEntity.ok(newDessert);
+        } catch (NullDessertPriceException | NullDessertDescriptionException | NulllDessertNameException | NullDessertObjectException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+
     }
     @PutMapping("/editDessert/{dessertId}")
     public int editDessert(@PathVariable Integer dessertId, @RequestBody Dessert dessert) throws NullDessertIdException, NullDessertObjectException, NulllDessertNameException, NullDessertDescriptionException, NullDessertPriceException{
