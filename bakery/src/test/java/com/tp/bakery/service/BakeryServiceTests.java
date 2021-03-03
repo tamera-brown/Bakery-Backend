@@ -36,6 +36,7 @@ public class BakeryServiceTests {
 
             test.setName("Lemon Pound Cake");
             test.setDescription("Made with lemons");
+
             Dessert added=toTest.addDessert(test);
             Dessert validate = toTest.getDessertById(1);
 
@@ -43,6 +44,7 @@ public class BakeryServiceTests {
             assertEquals(1,added.getDessertId());
             assertEquals("Lemon Pound Cake",added.getName());
             assertEquals("Made with lemons",added.getDescription());
+
 
             assertEquals(1,validate.getDessertId());
             assertEquals("Lemon Pound Cake",validate.getName());
@@ -84,6 +86,11 @@ public class BakeryServiceTests {
         Dessert test= new Dessert();
         test.setName("Chocolate Cake");
         test.setDescription(null);
+        test.setPrice(7.00);
+        test.setImage("");
         assertThrows(NullDessertDescriptionException.class,()->toTest.addDessert(test));
     }
+
+
 }
+

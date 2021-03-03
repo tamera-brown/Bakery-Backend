@@ -22,8 +22,8 @@ public class DessertPostgresDAOTests {
     @BeforeEach
     public void setUp(){
         template.update("truncate \"Menus\",\"Desserts\",\"Orders\",\"DessertMenus\",\"OrderDesserts\" restart identity;");
-        template.update("insert into \"Desserts\"(\"dessertName\",\"dessertDescription\",\"dessertPrice\")\n" +
-                "values('Pineapple Cake','Diced Pineapples in cream cheese icing','16.00');");
+        template.update("insert into \"Desserts\"(\"dessertName\",\"dessertDescription\",\"dessertPrice\",\"dessertImg\")\n" +
+                "values('Pineapple Cake','Diced Pineapples in cream cheese icing','16.00','');");
 
     }
 
@@ -106,6 +106,7 @@ public class DessertPostgresDAOTests {
             edit.setName("Yellow Cake");
             edit.setDescription("White Icing");
             edit.setPrice(24.00);
+            edit.setImage("");
 
             int returned = toTest.editDessert(edit);
 

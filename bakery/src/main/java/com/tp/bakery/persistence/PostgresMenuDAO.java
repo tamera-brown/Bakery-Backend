@@ -1,5 +1,6 @@
 package com.tp.bakery.persistence;
 
+import com.tp.bakery.model.Dessert;
 import com.tp.bakery.model.Menu;
 import com.tp.bakery.persistence.mappers.DessertMapper;
 import com.tp.bakery.persistence.mappers.IntegerMapper;
@@ -33,7 +34,14 @@ public class PostgresMenuDAO implements MenuDAO {
 
     @Override
     public Menu viewMenuById(Integer menuId) {
-        Menu retrieved=template.queryForObject("select * from \"DessertsHelper\" where \"menuId\"="+menuId+";\n",new MenuMapper());
+        Menu retrieved= template.queryForObject("select \"menuId\",\"menuName\" from \"Menus\" where \"menuId\"="+menuId+";\n",new MenuMapper());
+        retrieved.setDessertItems(getDessertsBymenuId(menuId));
         return retrieved;
+    }
+
+    private List<Dessert> getDessertsBymenuId(Integer menuId) {
+        List<Dessert> allDessertsinMenu=template.query("select \"dessertId\",\"dessertName\", \"dessertDescription\",\"dessertPrice\",\"dessertImg\" from \"DessertsHelper\"\n" +
+                "where \"menuId\"='"+menuId+"'", new DessertMapper());
+        return allDessertsinMenu;
     }
 }
