@@ -78,6 +78,11 @@ public class DessertInMemDAO implements DessertDAO {
     }
 
     @Override
+    public List<Dessert> getDessertsBymenuId(Integer menuId) {
+        return null;
+    }
+
+    @Override
     public void addDessertToMenu(Integer menuId, Integer dessertId) {
 
     }

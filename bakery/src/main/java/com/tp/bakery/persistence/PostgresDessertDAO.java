@@ -2,9 +2,7 @@ package com.tp.bakery.persistence;
 
 import com.tp.bakery.execptions.*;
 import com.tp.bakery.model.Dessert;
-import com.tp.bakery.persistence.mappers.DessertMapper;
-import com.tp.bakery.persistence.mappers.IntegerMapper;
-import com.tp.bakery.persistence.mappers.OrderMapper;
+import com.tp.bakery.persistence.mappers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -95,6 +93,13 @@ public class PostgresDessertDAO implements DessertDAO {
         int deleted=template.update("delete from \"Desserts\" where \"dessertId\"=?;",dessertId);
         return deleted;
 
+    }
+
+    @Override
+    public List<Dessert> getDessertsBymenuId(Integer menuId) {
+        List<Dessert> allDessertsinMenu=template.query("select \"dessertId\",\"dessertName\", \"dessertDescription\",\"dessertPrice\",\"dessertImg\" from \"DessertsHelper\"\n" +
+                "where \"menuId\"='"+menuId+"'", new DessertMapper());
+        return allDessertsinMenu;
     }
 
     @Override

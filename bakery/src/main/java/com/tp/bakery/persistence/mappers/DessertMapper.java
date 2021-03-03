@@ -1,6 +1,7 @@
 package com.tp.bakery.persistence.mappers;
 
 import com.tp.bakery.model.Dessert;
+import com.tp.bakery.model.Menu;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -16,6 +17,7 @@ import java.sql.SQLException;
             mappedDessert.setDescription(resultSet.getString("dessertDescription"));
             mappedDessert.setPrice(resultSet.getDouble("dessertPrice"));
             mappedDessert.setImage(resultSet.getString("dessertImg"));
+
 
             return mappedDessert;
         }

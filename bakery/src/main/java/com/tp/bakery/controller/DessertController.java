@@ -62,7 +62,10 @@ public class DessertController {
             return -1;
         }
     }
-
+    @GetMapping("desserts/menu/{menuId}")
+    public List<Dessert> getDessertsBymenuId(@PathVariable Integer menuId){
+    return service.getDessertsBymenuId(menuId);
+    }
     @PutMapping("/add/{menuId}/{dessertId}")
     public void addDessertToMenu(@PathVariable Integer menuId, @PathVariable Integer dessertId){
      service.addDessertToMenu(menuId,dessertId);

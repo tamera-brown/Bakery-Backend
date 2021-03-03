@@ -20,17 +20,17 @@ public class MenuMapper implements RowMapper<Menu> {
 
         List<Dessert> dessertItems = new ArrayList<>();
 
-        while(resultSet.next()) {
-            System.out.println(resultSet.getFetchSize());
-            Dessert mappedDessert = new Dessert();
-            mappedDessert.setDessertId(resultSet.getInt("dessertId"));
-            mappedDessert.setName(resultSet.getString("dessertName"));
-            mappedDessert.setDescription(resultSet.getString("dessertDescription"));
-            mappedDessert.setPrice(resultSet.getDouble("dessertPrice"));
+                Dessert mappedDessert = new Dessert();
+                mappedDessert.setDessertId(resultSet.getInt("dessertId"));
+                mappedDessert.setName(resultSet.getString("dessertName"));
+                mappedDessert.setDescription(resultSet.getString("dessertDescription"));
+                mappedDessert.setPrice(resultSet.getDouble("dessertPrice"));
+                mappedDessert.setImage(resultSet.getString("dessertImg"));
 
-            dessertItems.add(mappedDessert);
-            mappedMenu.setDessertItems(dessertItems);
-        }
+                dessertItems.add(mappedDessert);
+
+
+        mappedMenu.setDessertItems(dessertItems);
 
         return mappedMenu;
     }

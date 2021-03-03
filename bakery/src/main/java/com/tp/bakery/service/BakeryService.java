@@ -62,4 +62,8 @@ public class BakeryService {
          Dessertdao.buyDessert(dessertId,quantityNum);
         return null;
     }
+
+    public List<Dessert> getDessertsBymenuId(Integer menuId) {
+        return Dessertdao.getDessertsBymenuId(menuId);
+    }
 }

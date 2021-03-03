@@ -21,7 +21,7 @@ public class MenuController {
         return service.getAllMenus();
     }
     @GetMapping("/menu/{menuId}")
-    public Menu viewMenuById(@PathVariable Integer menuId){
+    Menu viewMenuById(@PathVariable Integer menuId){
         return service.viewMenusById(menuId);
 
     }
