@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200")
+
 public class DessertController {
 
     @Autowired
@@ -24,11 +25,14 @@ public class DessertController {
     }
 
     @GetMapping("/dessert/{dessertId}")
-    public ResponseEntity getDessertById(@PathVariable Integer dessertId) throws NullDessertIdException, InvaildDessertIdException {
-        Dessert retrievedDessert = service.getDessertById(dessertId);
-        return ResponseEntity.ok(retrievedDessert);
+    public ResponseEntity getDessertById(@PathVariable Integer dessertId) {
+        try {
+            Dessert retrievedDessert = service.getDessertById(dessertId);
+            return ResponseEntity.ok(retrievedDessert);
+        } catch (NullDessertIdException | InvaildDessertIdException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
-
 
     @PostMapping("/addDessert")
     public ResponseEntity addDessert(@RequestBody Dessert dessert) {
@@ -42,15 +46,23 @@ public class DessertController {
 
     }
     @PutMapping("/editDessert")
-    public int editDessert(  @RequestBody Dessert dessert) throws NullDessertIdException, NullDessertObjectException, NulllDessertNameException, NullDessertDescriptionException, NullDessertPriceException{
-       return service.editDessert(dessert);
+    public int editDessert(  @RequestBody Dessert dessert) {
+        try {
+            return service.editDessert(dessert);
 
+        } catch (NullDessertIdException | NullDessertObjectException | NulllDessertNameException | NullDessertDescriptionException | NullDessertPriceException e) {
+            return -1;
+        }
     }
     @DeleteMapping("/deleteDessert/{dessertId}")
-    public int deleteDessert(@PathVariable Integer dessertId) throws NullDessertIdException {
-    return service.deleteDessert(dessertId);
-
+    public int deleteDessert(@PathVariable Integer dessertId) {
+        try {
+            return service.deleteDessert(dessertId);
+        } catch (NullDessertIdException e) {
+            return -1;
+        }
     }
+
     @PutMapping("/add/{menuId}/{dessertId}")
     public void addDessertToMenu(@PathVariable Integer menuId, @PathVariable Integer dessertId){
      service.addDessertToMenu(menuId,dessertId);
