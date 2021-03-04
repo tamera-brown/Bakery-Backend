@@ -3,6 +3,7 @@ package com.tp.bakery.persistence;
 
 import com.tp.bakery.execptions.*;
 import com.tp.bakery.model.Dessert;
+import com.tp.bakery.model.Order;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
@@ -77,10 +78,6 @@ public class DessertInMemDAO implements DessertDAO {
         return 0;
     }
 
-    @Override
-    public List<Dessert> getDessertsBymenuId(Integer menuId) {
-        return null;
-    }
 
     @Override
     public void addDessertToMenu(Integer menuId, Integer dessertId) {
@@ -88,7 +85,7 @@ public class DessertInMemDAO implements DessertDAO {
     }
 
     @Override
-    public Dessert buyDessert(Integer dessertId, Integer quantityNum) {
-        return null;
+    public int buyDessert(Integer dessertId) {
+        return 0;
     }
 }

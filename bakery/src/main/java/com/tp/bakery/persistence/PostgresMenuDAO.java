@@ -20,7 +20,7 @@ public class PostgresMenuDAO implements MenuDAO {
 
     @Override
     public List<Menu> getAllMenus() {
-        List<Menu> allMenus=template.query("select \"menuId\",\"menuName\" from \"Menus\";",new partialMenuMapper());
+        List<Menu> allMenus=template.query("select \"menuId\",\"menuName\" from \"Menus\";",new MenuMapper());
         return allMenus;
     }
 

@@ -62,19 +62,15 @@ public class DessertController {
             return -1;
         }
     }
-    @GetMapping("desserts/menu/{menuId}")
-    public List<Dessert> getDessertsBymenuId(@PathVariable Integer menuId){
-    return service.getDessertsBymenuId(menuId);
-    }
     @PutMapping("/add/{menuId}/{dessertId}")
     public void addDessertToMenu(@PathVariable Integer menuId, @PathVariable Integer dessertId){
      service.addDessertToMenu(menuId,dessertId);
     }
-    @PostMapping("/buy/{dessertId}/{quantityNum}")
-    public ResponseEntity buyDessert(@PathVariable Integer dessertId, @PathVariable int quantityNum){
+    @PostMapping("/buy/{dessertId}")
+    public int buyDessert(@PathVariable Integer dessertId){
 
-        Dessert bought=service.buyDessert(dessertId,quantityNum);
-        return ResponseEntity.ok(bought);
+        int bought=service.buyDessert(dessertId);
+        return bought;
 
     }
 

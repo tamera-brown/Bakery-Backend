@@ -3,6 +3,7 @@ package com.tp.bakery.service;
 import com.tp.bakery.execptions.*;
 import com.tp.bakery.model.Dessert;
 import com.tp.bakery.model.Menu;
+import com.tp.bakery.model.Order;
 import com.tp.bakery.persistence.DessertDAO;
 import com.tp.bakery.persistence.MenuDAO;
 import com.tp.bakery.persistence.OrderDAO;
@@ -59,12 +60,7 @@ public class BakeryService {
     }
 
 
-    public Dessert buyDessert(Integer dessertId, Integer quantityNum) {
-         Dessertdao.buyDessert(dessertId,quantityNum);
-        return null;
-    }
-
-    public List<Dessert> getDessertsBymenuId(Integer menuId) {
-        return Dessertdao.getDessertsBymenuId(menuId);
+    public int buyDessert(Integer dessertId) {
+        return Dessertdao.buyDessert(dessertId);
     }
 }

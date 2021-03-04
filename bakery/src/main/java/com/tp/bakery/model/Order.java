@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
+    Integer orderId;
     String name;
     String email;
     List<Dessert> BagItems;
@@ -12,6 +13,7 @@ public class Order {
     public Order(){};
 
     public Order(Order that){
+        this.orderId=that.orderId;
         this.name= that.name;
         this.email= that.email;
         this.BagItems=new ArrayList<>();
@@ -19,6 +21,14 @@ public class Order {
             this.BagItems.add(toCopy);
         }
         this.totalPrice=that.totalPrice;
+    }
+
+    public Integer getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 
     public String getName() {

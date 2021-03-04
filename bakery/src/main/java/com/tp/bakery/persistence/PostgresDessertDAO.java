@@ -2,6 +2,7 @@ package com.tp.bakery.persistence;
 
 import com.tp.bakery.execptions.*;
 import com.tp.bakery.model.Dessert;
+import com.tp.bakery.model.Order;
 import com.tp.bakery.persistence.mappers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -42,6 +43,7 @@ public class PostgresDessertDAO implements DessertDAO {
 
         dessert.setDessertId(dessertId);
 
+
         return dessert;
     }
 
@@ -75,11 +77,12 @@ public class PostgresDessertDAO implements DessertDAO {
         if(editdessert.getPrice()==null){
             throw new NullDessertPriceException("Cannot edit dessert with null price");
         }
-        int edited=template.update("update \"Desserts\"\n" +
+        int edited= template.update("update \"Desserts\"\n" +
                 "set \"dessertName\"=?, \"dessertDescription\"=?, \"dessertPrice\"=?, \"dessertImg\"=? \n" +
                 "where \"dessertId\"=?;",
 
-                editdessert.getName(),editdessert.getDescription(),editdessert.getPrice(),editdessert.getImage(),editdessert.getDessertId());
+                editdessert.getName(),editdessert.getDescription(),
+                editdessert.getPrice(),editdessert.getImage(),editdessert.getDessertId());
 
         return edited;
 
@@ -90,30 +93,28 @@ public class PostgresDessertDAO implements DessertDAO {
         if(dessertId==null){
             throw new NullDessertIdException("Cannot delete dessert with null id");
         }
+        template.update("delete from \"DessertMenus\" where \"dessertId\"=?;",dessertId);
         int deleted=template.update("delete from \"Desserts\" where \"dessertId\"=?;",dessertId);
         return deleted;
 
     }
 
-    @Override
-    public List<Dessert> getDessertsBymenuId(Integer menuId) {
-        List<Dessert> allDessertsinMenu=template.query("select \"dessertId\",\"dessertName\", \"dessertDescription\",\"dessertPrice\",\"dessertImg\" from \"DessertsHelper\"\n" +
-                "where \"menuId\"='"+menuId+"'", new DessertMapper());
-        return allDessertsinMenu;
-    }
 
     @Override
     public void addDessertToMenu(Integer menuId, Integer dessertId) {
         template.update("insert into \"DessertMenus\"(\"menuId\",\"dessertId\")\n" +
-                "select \"menuId\",\"dessertId\" from \"DessertsHelper\"\n" +
-                "where \"menuId\"=? and \"dessertId\"=?;\n" +
-                "\n", menuId,dessertId );
+                "select \"menuId\",\"dessertId\" from \"DessertsHelper\"\n"+
+                "\n");
     }
 
     @Override
-    public Dessert buyDessert(Integer dessertId, Integer quantityNum) {
-        //Integer input=template.queryForObject("", new OrderMapper());
-        return null;
+    public int buyDessert(Integer dessertId) {
+        Integer orderId =template.queryForObject("INSERT INTO \"DessertOrders\"(\n" +
+                "\t \"dessertId\", quantity)\n" +
+                "\tVALUES (?, ?) returning \"orderId\";",new IntegerMapper("orderId"), dessertId,1);
+
+        return orderId;
+
     }
 
 

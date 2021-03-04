@@ -2,6 +2,7 @@ package com.tp.bakery.persistence;
 
 import com.tp.bakery.execptions.*;
 import com.tp.bakery.model.Dessert;
+import com.tp.bakery.model.Order;
 
 import java.util.List;
 
@@ -16,9 +17,8 @@ public interface DessertDAO {
 
     int deleteDessert(Integer dessertId) throws NullDessertIdException;
 
-    List<Dessert> getDessertsBymenuId(Integer menuId);
 
     void addDessertToMenu(Integer menuId, Integer dessertId);
 
-    Dessert buyDessert(Integer dessertId, Integer quantityNum);
+    int buyDessert(Integer dessertId);
 }
