@@ -5,22 +5,23 @@ import java.util.List;
 
 public class Order {
     Integer orderId;
-    String name;
-    String email;
-    List<Dessert> BagItems;
-    Double totalPrice;
+    Integer dessertId;
+    Integer quantity;
+    String dessertName;
+    String dessertDescription;
+    Double dessertPrice;
+    String dessertImage;
 
-    public Order(){};
+    public Order() {
+    }
 
-    public Order(Order that){
-        this.orderId=that.orderId;
-        this.name= that.name;
-        this.email= that.email;
-        this.BagItems=new ArrayList<>();
-        for(Dessert toCopy : that.BagItems){
-            this.BagItems.add(toCopy);
-        }
-        this.totalPrice=that.totalPrice;
+    ;
+
+    public Order(Order that) {
+        this.orderId = that.orderId;
+        this.dessertId = that.dessertId;
+        that.quantity = that.quantity;
+
     }
 
     public Integer getOrderId() {
@@ -31,35 +32,51 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public String getName() {
-        return name;
+    public Integer getDessertId() {
+        return dessertId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDessertId(Integer dessertId) {
+        this.dessertId = dessertId;
     }
 
-    public String getEmail() {
-        return email;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
-    public List<Dessert> getBagItems() {
-        return BagItems;
+    public String getDessertName() {
+        return dessertName;
     }
 
-    public void setBagItems(List<Dessert> bagItems) {
-        BagItems = bagItems;
+    public void setDessertName(String dessertName) {
+        this.dessertName = dessertName;
     }
 
-    public Double getTotalPrice() {
-        return totalPrice;
+    public String getDessertDescription() {
+        return dessertDescription;
     }
 
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setDessertDescription(String dessertDescription) {
+        this.dessertDescription = dessertDescription;
+    }
+
+    public Double getDessertPrice() {
+        return dessertPrice;
+    }
+
+    public void setDessertPrice(Double dessertPrice) {
+        this.dessertPrice = dessertPrice;
+    }
+
+    public String getDessertImage() {
+        return dessertImage;
+    }
+
+    public void setDessertImage(String dessertImage) {
+        this.dessertImage = dessertImage;
     }
 }

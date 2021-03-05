@@ -109,7 +109,7 @@ public class PostgresDessertDAO implements DessertDAO {
 
     @Override
     public int buyDessert(Integer dessertId) {
-        Integer orderId =template.queryForObject("INSERT INTO \"DessertOrders\"(\n" +
+        Integer orderId =template.queryForObject("INSERT INTO \"Orders\"(\n" +
                 "\t \"dessertId\", quantity)\n" +
                 "\tVALUES (?, ?) returning \"orderId\";",new IntegerMapper("orderId"), dessertId,1);
 
