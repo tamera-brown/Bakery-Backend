@@ -5,7 +5,6 @@ import com.tp.bakery.model.Menu;
 import com.tp.bakery.persistence.mappers.DessertMapper;
 import com.tp.bakery.persistence.mappers.IntegerMapper;
 import com.tp.bakery.persistence.mappers.MenuMapper;
-import com.tp.bakery.persistence.mappers.partialMenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

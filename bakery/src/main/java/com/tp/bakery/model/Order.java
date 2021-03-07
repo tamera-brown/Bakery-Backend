@@ -6,20 +6,21 @@ import java.util.List;
 public class Order {
     Integer orderId;
     Integer dessertId;
+    List<Dessert> bagItems;
     Integer quantity;
-    String dessertName;
-    String dessertDescription;
-    Double dessertPrice;
-    String dessertImage;
+
 
     public Order() {
     }
 
-    ;
 
     public Order(Order that) {
         this.orderId = that.orderId;
         this.dessertId = that.dessertId;
+        this.bagItems=new ArrayList<>();
+        for(Dessert toCopy : that.bagItems){
+            this.bagItems.add(toCopy);
+        }
         that.quantity = that.quantity;
 
     }
@@ -48,35 +49,11 @@ public class Order {
         this.quantity = quantity;
     }
 
-    public String getDessertName() {
-        return dessertName;
+    public List<Dessert> getBagItems() {
+        return bagItems;
     }
 
-    public void setDessertName(String dessertName) {
-        this.dessertName = dessertName;
-    }
-
-    public String getDessertDescription() {
-        return dessertDescription;
-    }
-
-    public void setDessertDescription(String dessertDescription) {
-        this.dessertDescription = dessertDescription;
-    }
-
-    public Double getDessertPrice() {
-        return dessertPrice;
-    }
-
-    public void setDessertPrice(Double dessertPrice) {
-        this.dessertPrice = dessertPrice;
-    }
-
-    public String getDessertImage() {
-        return dessertImage;
-    }
-
-    public void setDessertImage(String dessertImage) {
-        this.dessertImage = dessertImage;
+    public void setBagItems(List<Dessert> bagItems) {
+        this.bagItems = bagItems;
     }
 }

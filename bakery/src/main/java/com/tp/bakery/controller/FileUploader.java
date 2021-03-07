@@ -25,7 +25,7 @@ public class FileUploader {
         String message;
         try {
             try {
-                Files.copy(file.getInputStream(), this.rootLocation.resolve("file_name.png"));
+                Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
             } catch (Exception e) {
                 throw new RuntimeException("FAIL!");
             }
