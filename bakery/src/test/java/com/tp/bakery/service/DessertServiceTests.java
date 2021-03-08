@@ -15,7 +15,8 @@ import java.util.List;
 
 @SpringBootTest
 @ActiveProfiles("ServiceTesting")
-public class BakeryServiceTests {
+public class DessertServiceTests {
+
     @Autowired
     DessertInMemDAO toTest;
 

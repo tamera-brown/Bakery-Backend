@@ -21,9 +21,9 @@ public class DessertPostgresDAOTests {
 
     @BeforeEach
     public void setUp(){
-        template.update("truncate \"Menus\",\"Desserts\",\"Orders\",\"DessertMenus\",\"OrderDesserts\" restart identity;");
+        template.update("truncate \"Menus\",\"Desserts\",\"DessertMenus\",\"Orders\" restart identity;");
         template.update("insert into \"Desserts\"(\"dessertName\",\"dessertDescription\",\"dessertPrice\", \"dessertImg\")\n" +
-                "                values('Pound Cake','Moist','16.00','');");
+                "                values('Pineapple Cake','Diced Pineapples in cream cheese icing','16.00','https://thestayathomechef.com/wp-content/uploads/2020/02/Pineapple-Upsidedown-Cake-7.jpg');");
 
     }
 
@@ -34,6 +34,7 @@ public class DessertPostgresDAOTests {
             partialDessert.setName("Pound Cake");
             partialDessert.setDescription("Moist");
             partialDessert.setPrice(25.00);
+            partialDessert.setImage("https://www.biggerbolderbaking.com/wp-content/uploads/2021/01/Sour-Cream-Pound-Cake-Thumbnail-scaled.jpg");
 
             Dessert returned = toTest.addDessert(partialDessert);
 
@@ -41,6 +42,7 @@ public class DessertPostgresDAOTests {
             assertEquals("Pound Cake", returned.getName());
             assertEquals("Moist", returned.getDescription());
             assertEquals(25.00,returned.getPrice());
+            assertEquals("https://www.biggerbolderbaking.com/wp-content/uploads/2021/01/Sour-Cream-Pound-Cake-Thumbnail-scaled.jpg",returned.getImage());
 
             Dessert dessert = toTest.getDessertById(1);
 
@@ -48,6 +50,7 @@ public class DessertPostgresDAOTests {
             assertEquals("Pineapple Cake", dessert.getName());
             assertEquals("Diced Pineapples in cream cheese icing", dessert.getDescription());
             assertEquals(16.00,dessert.getPrice());
+            assertEquals("https://thestayathomechef.com/wp-content/uploads/2020/02/Pineapple-Upsidedown-Cake-7.jpg",dessert.getImage());
         }catch (NullDessertObjectException | NulllDessertNameException | NullDessertDescriptionException | NullDessertIdException | NullDessertPriceException e){
             fail();
         }
@@ -81,6 +84,10 @@ public class DessertPostgresDAOTests {
         assertThrows(NullDessertPriceException.class,()->toTest.addDessert(test));
     }
     @Test
+    public void addDessertNullImageTest(){
+        
+    }
+    @Test
     public void deleteDessertGlodenPathTest() {
         try{
             toTest.deleteDessert(1);
@@ -98,6 +105,8 @@ public class DessertPostgresDAOTests {
         assertEquals(1, toTest.getAllDesserts().get(0).getDessertId());
         assertEquals("Pineapple Cake",toTest.getAllDesserts().get(0).getName());
         assertEquals("Diced Pineapples in cream cheese icing",toTest.getAllDesserts().get(0).getDescription());
+        assertEquals(16.00,toTest.getAllDesserts().get(0).getPrice());
+        assertEquals("https://thestayathomechef.com/wp-content/uploads/2020/02/Pineapple-Upsidedown-Cake-7.jpg",toTest.getAllDesserts().get(0).getImage());
     }
     @Test
     public void editDessertGlodenPathTest() {
@@ -106,7 +115,7 @@ public class DessertPostgresDAOTests {
             edit.setName("Yellow Cake");
             edit.setDescription("White Icing");
             edit.setPrice(24.00);
-            edit.setImage("");
+            edit.setImage("https://www.thespruceeats.com/thmb/y9Sj9blj6uM14YUdM6FlZv2dhEI=/2667x2000/smart/filters:no_upscale()/piece-of-yellow-cake-with-vanilla-frosting-186880544-57eade013df78c690fe89768.jpg");
 
             int returned = toTest.editDessert(edit);
 
@@ -114,6 +123,7 @@ public class DessertPostgresDAOTests {
             assertEquals("Yellow Cake", toTest.getAllDesserts().get(0).getName());
             assertEquals("White Icing", toTest.getAllDesserts().get(0).getDescription());
             assertEquals(24.00,toTest.getAllDesserts().get(0).getPrice());
+            assertEquals("https://www.thespruceeats.com/thmb/y9Sj9blj6uM14YUdM6FlZv2dhEI=/2667x2000/smart/filters:no_upscale()/piece-of-yellow-cake-with-vanilla-frosting-186880544-57eade013df78c690fe89768.jpg",toTest.getAllDesserts().get(0).getImage());
 
 
         } catch (NullDessertIdException | NullDessertObjectException | NulllDessertNameException | NullDessertDescriptionException | NullDessertPriceException e) {

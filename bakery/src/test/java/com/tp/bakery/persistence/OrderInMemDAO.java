@@ -13,4 +13,14 @@ public class OrderInMemDAO implements OrderDAO{
     public List<Order> getAllOrders() {
         return null;
     }
+
+    @Override
+    public Order veiwOrderById(Integer orderId) {
+        return null;
+    }
+
+    @Override
+    public int deletOrder(Integer orderId) {
+        return 0;
+    }
 }

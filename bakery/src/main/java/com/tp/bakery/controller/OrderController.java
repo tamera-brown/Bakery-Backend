@@ -1,12 +1,10 @@
 package com.tp.bakery.controller;
 
+import com.tp.bakery.execptions.NullDessertIdException;
 import com.tp.bakery.model.Order;
 import com.tp.bakery.service.BakeryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,7 +16,17 @@ public class OrderController {
     BakeryService service;
 
     @GetMapping("/orders")
-    List<Order> getAllOrders(){
+    List<Order> getAllOrders() throws NullDessertIdException {
         return service.getAllOrders();
+    }
+
+    @GetMapping("/orders/{orderId}")
+    Order veiwOrderById(@PathVariable Integer orderId) throws NullDessertIdException {
+        return service.viewOrderById(orderId);
+    }
+    @DeleteMapping("/deleteOrder/{orderId}")
+    public int deleteOrder(@PathVariable Integer orderId) {
+            return service.deleteOrder(orderId);
+
     }
 }

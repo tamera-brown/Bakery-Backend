@@ -94,7 +94,10 @@ public class PostgresDessertDAO implements DessertDAO {
             throw new NullDessertIdException("Cannot delete dessert with null id");
         }
         template.update("delete from \"DessertMenus\" where \"dessertId\"=?;",dessertId);
+        template.update("delete from \"Orders\" where \"dessertId\"=?;",dessertId);
         int deleted=template.update("delete from \"Desserts\" where \"dessertId\"=?;",dessertId);
+
+
         return deleted;
 
     }

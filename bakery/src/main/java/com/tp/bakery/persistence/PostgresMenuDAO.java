@@ -6,11 +6,13 @@ import com.tp.bakery.persistence.mappers.DessertMapper;
 import com.tp.bakery.persistence.mappers.IntegerMapper;
 import com.tp.bakery.persistence.mappers.MenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 @Repository
+@Profile({"Application","daoTesting"})
 public class PostgresMenuDAO implements MenuDAO {
 
     @Autowired
@@ -20,6 +22,10 @@ public class PostgresMenuDAO implements MenuDAO {
     @Override
     public List<Menu> getAllMenus() {
         List<Menu> allMenus=template.query("select \"menuId\",\"menuName\" from \"Menus\";",new MenuMapper());
+
+        for(Menu menu : allMenus){
+            menu.setDessertItems(getDessertsBymenuId(menu.getMenuId()));
+        }
         return allMenus;
     }
 

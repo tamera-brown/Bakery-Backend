@@ -64,7 +64,15 @@ public class BakeryService {
         return Dessertdao.buyDessert(dessertId);
     }
 
-    public List<Order> getAllOrders() {
+    public List<Order> getAllOrders() throws NullDessertIdException {
         return Orderdao.getAllOrders();
+    }
+
+    public Order viewOrderById(Integer orderId) throws NullDessertIdException {
+        return Orderdao.veiwOrderById(orderId);
+    }
+
+    public int deleteOrder(Integer orderId) {
+        return Orderdao.deletOrder(orderId);
     }
 }

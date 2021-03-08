@@ -6,7 +6,7 @@ import java.util.List;
 public class Order {
     Integer orderId;
     Integer dessertId;
-    List<Dessert> bagItems;
+    Dessert bagItem;
     Integer quantity;
 
 
@@ -17,10 +17,8 @@ public class Order {
     public Order(Order that) {
         this.orderId = that.orderId;
         this.dessertId = that.dessertId;
-        this.bagItems=new ArrayList<>();
-        for(Dessert toCopy : that.bagItems){
-            this.bagItems.add(toCopy);
-        }
+        this.bagItem= that.bagItem;
+
         that.quantity = that.quantity;
 
     }
@@ -49,11 +47,11 @@ public class Order {
         this.quantity = quantity;
     }
 
-    public List<Dessert> getBagItems() {
-        return bagItems;
+    public Dessert getBagItem() {
+        return bagItem;
     }
 
-    public void setBagItems(List<Dessert> bagItems) {
-        this.bagItems = bagItems;
+    public void setBagItem(Dessert bagItem) {
+        this.bagItem = bagItem;
     }
 }
