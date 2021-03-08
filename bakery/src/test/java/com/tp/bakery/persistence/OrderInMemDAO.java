@@ -23,4 +23,9 @@ public class OrderInMemDAO implements OrderDAO{
     public int deletOrder(Integer orderId) {
         return 0;
     }
+
+    @Override
+    public int editOrder(Order partialOrder) {
+        return 0;
+    }
 }

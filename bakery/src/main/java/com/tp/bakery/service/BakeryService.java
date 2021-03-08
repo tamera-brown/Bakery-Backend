@@ -75,4 +75,8 @@ public class BakeryService {
     public int deleteOrder(Integer orderId) {
         return Orderdao.deletOrder(orderId);
     }
+
+    public int editOrder(Order partialOrder) {
+        return Orderdao.editOrder(partialOrder);
+    }
 }

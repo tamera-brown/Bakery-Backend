@@ -49,6 +49,18 @@ public class PostgresOrderDAO implements OrderDAO {
         return deleted;
     }
 
+    @Override
+    public int editOrder(Order partialOrder) {
+        int edited= template.update("UPDATE \"Orders\"\n" +
+                "\tSET  \"dessertId\"=?, \"quantity\"=?\n" +
+                "\tWHERE \"orderId\"=?;", partialOrder.getDessertId(),partialOrder.getQuantity(),partialOrder.getOrderId());
+
+
+
+        return edited;
+
+    }
+
     public Dessert getDessertById(Integer dessertId) throws NullDessertIdException {
         if (dessertId == null) {
             throw new NullDessertIdException("Cannot get dessert with null Id");

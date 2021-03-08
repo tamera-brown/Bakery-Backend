@@ -12,4 +12,6 @@ public interface OrderDAO {
     Order veiwOrderById(Integer orderId) throws NullDessertIdException;
 
     int deletOrder(Integer orderId);
+
+    int editOrder(Order partialOrder);
 }

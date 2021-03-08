@@ -24,9 +24,15 @@ public class OrderController {
     Order veiwOrderById(@PathVariable Integer orderId) throws NullDessertIdException {
         return service.viewOrderById(orderId);
     }
+    @PutMapping("/editOrder")
+    public int editOrder(@RequestBody Order partialOrder){
+        return service.editOrder(partialOrder);
+    }
+
     @DeleteMapping("/deleteOrder/{orderId}")
     public int deleteOrder(@PathVariable Integer orderId) {
             return service.deleteOrder(orderId);
 
     }
+
 }
