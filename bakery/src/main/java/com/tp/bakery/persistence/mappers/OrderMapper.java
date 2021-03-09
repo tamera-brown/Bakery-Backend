@@ -15,6 +15,7 @@ public class OrderMapper implements RowMapper<Order> {
         mappedOrder.setOrderId(resultSet.getInt("orderId"));
         mappedOrder.setDessertId(resultSet.getInt("dessertId"));
         mappedOrder.setQuantity(resultSet.getInt("quantity"));
+        mappedOrder.setTotalPrice(resultSet.getDouble("totalprice"));
 
 
         return mappedOrder;

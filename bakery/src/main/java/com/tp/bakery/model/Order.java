@@ -8,6 +8,7 @@ public class Order {
     Integer dessertId;
     Dessert bagItem;
     Integer quantity;
+    Double totalPrice;
 
 
     public Order() {
@@ -18,8 +19,8 @@ public class Order {
         this.orderId = that.orderId;
         this.dessertId = that.dessertId;
         this.bagItem= that.bagItem;
-
         that.quantity = that.quantity;
+        this.totalPrice= that.totalPrice;
 
     }
 
@@ -53,5 +54,13 @@ public class Order {
 
     public void setBagItem(Dessert bagItem) {
         this.bagItem = bagItem;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

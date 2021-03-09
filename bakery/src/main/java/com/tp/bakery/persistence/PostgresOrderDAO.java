@@ -22,10 +22,12 @@ public class PostgresOrderDAO implements OrderDAO {
 
     @Override
     public List<Order> getAllOrders() throws NullDessertIdException {
-        List<Order> orders = template.query("select \"orderId\", o.\"dessertId\" ,\"quantity\", dh.\"dessertName\", \n" +
-                "dh.\"dessertDescription\", dh.\"dessertPrice\", dh.\"dessertImg\"\n" +
-                "from \"Orders\" as o join \"DessertsHelper\" as dh\n" +
-                "on o.\"dessertId\"=dh.\"dessertId\";", new OrderMapper());
+        List<Order> orders = template.query("select \"orderId\",o.\"dessertId\",\"quantity\", dh.\"dessertName\",dh.\"dessertDescription\", dh.\"dessertPrice\", dh.\"dessertImg\",\n" +
+                "sum(dh.\"dessertPrice\"* \"quantity\") as totalPrice\n" +
+                "from \"Orders\" as o\n" +
+                "join \"DessertsHelper\" as dh\n" +
+                "on o.\"dessertId\"=dh.\"dessertId\"\n" +
+                "group by o.\"orderId\",dh.\"dessertName\",dh.\"dessertDescription\",  dh.\"dessertPrice\", dh.\"dessertImg\"", new OrderMapper());
 
         for(Order order :orders){
             order.setBagItem(getDessertById(order.getDessertId()));
@@ -35,10 +37,12 @@ public class PostgresOrderDAO implements OrderDAO {
 
     @Override
     public Order veiwOrderById(Integer orderId) throws NullDessertIdException {
-        Order retrieved = template.queryForObject("select \"orderId\", o.\"dessertId\" ,\"quantity\", dh.\"dessertName\",\n" +
-                "                dh.\"dessertDescription\", dh.\"dessertPrice\", dh.\"dessertImg\"\n" +
-                "                from \"Orders\" as o join \"DessertsHelper\" as dh\n" +
-                "                on o.\"dessertId\" = dh.\"dessertId\" and o.\"orderId\"=?;", new OrderMapper(), orderId);
+        Order retrieved = template.queryForObject("select \"orderId\",o.\"dessertId\",\"quantity\", dh.\"dessertName\",dh.\"dessertDescription\", dh.\"dessertPrice\", dh.\"dessertImg\",\n" +
+                "sum(dh.\"dessertPrice\"* \"quantity\") as totalPrice\n" +
+                "from \"Orders\" as o\n" +
+                "join \"DessertsHelper\" as dh\n" +
+                "on o.\"dessertId\"=dh.\"dessertId\" and o.\"orderId\"= ?\n" +
+                "group by o.\"orderId\",dh.\"dessertName\",dh.\"dessertDescription\",  dh.\"dessertPrice\", dh.\"dessertImg\"", new OrderMapper(), orderId);
         retrieved.setBagItem(getDessertById(retrieved.getDessertId()));
         return retrieved;
     }
@@ -52,8 +56,8 @@ public class PostgresOrderDAO implements OrderDAO {
     @Override
     public int editOrder(Order partialOrder) {
         int edited= template.update("UPDATE \"Orders\"\n" +
-                "\tSET  \"dessertId\"=?, \"quantity\"=?\n" +
-                "\tWHERE \"orderId\"=?;", partialOrder.getDessertId(),partialOrder.getQuantity(),partialOrder.getOrderId());
+                "\tSET  \"quantity\"=?\n" +
+                "\tWHERE \"orderId\"=?;", partialOrder.getQuantity(),partialOrder.getOrderId());
 
 
 
