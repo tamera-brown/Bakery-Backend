@@ -48,7 +48,7 @@ public class PostgresOrderDAO implements OrderDAO {
     }
 
     @Override
-    public int deletOrder(Integer orderId) {
+    public int deleteOrder(Integer orderId) {
         int deleted = template.update("delete from \"Orders\" where \"orderId\"=?;", orderId);
         return deleted;
     }

@@ -8,13 +8,13 @@ import java.util.List;
 public interface DessertDAO {
     List<Dessert> getAllDesserts();
 
-    Dessert addDessert(Dessert dessert) throws NullDessertObjectException, NulllDessertNameException, NullDessertDescriptionException,NullDessertPriceException;
+    Dessert addDessert(Dessert dessert) throws NullDessertObjectException, NulllDessertNameException, NullDessertDescriptionException,NullDessertPriceException, NullDessertImageException, InvalidDessertPriceException, InvalidDessertNameException, InvalidDessertDescriptionException, InvalidDessertImageException;
 
     Dessert getDessertById(Integer dessertId) throws NullDessertIdException, InvaildDessertIdException;
 
-    int editDessert( Dessert editDessert) throws NullDessertIdException, NullDessertObjectException, NulllDessertNameException, NullDessertDescriptionException, NullDessertPriceException;
+    int editDessert( Dessert editDessert) throws NullDessertIdException, NullDessertObjectException, NulllDessertNameException, NullDessertDescriptionException, NullDessertPriceException, NullDessertImageException;
 
-    int deleteDessert(Integer dessertId) throws NullDessertIdException;
+    int deleteDessert(Integer dessertId) throws NullDessertIdException, InvaildDessertIdException;
 
 
     void addDessertToMenu(Integer menuId, Integer dessertId);

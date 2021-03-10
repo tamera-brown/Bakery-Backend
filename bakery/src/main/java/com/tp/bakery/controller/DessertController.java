@@ -40,7 +40,7 @@ public class DessertController {
             Dessert newDessert = service.addDessert(dessert);
            return ResponseEntity.ok(newDessert);
 
-        } catch (NullDessertPriceException | NullDessertDescriptionException | NulllDessertNameException | NullDessertObjectException e) {
+        } catch (NullDessertPriceException | NullDessertDescriptionException | NulllDessertNameException | NullDessertObjectException | NullDessertImageException | InvalidDessertPriceException | InvalidDessertNameException | InvalidDessertDescriptionException | InvalidDessertImageException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
 
@@ -50,7 +50,7 @@ public class DessertController {
         try {
             return service.editDessert(dessert);
 
-        } catch (NullDessertIdException | NullDessertObjectException | NulllDessertNameException | NullDessertDescriptionException | NullDessertPriceException e) {
+        } catch (NullDessertIdException | NullDessertObjectException | NulllDessertNameException | NullDessertDescriptionException | NullDessertPriceException | NullDessertImageException e) {
             return -1;
         }
     }
@@ -58,7 +58,7 @@ public class DessertController {
     public int deleteDessert(@PathVariable Integer dessertId) {
         try {
             return service.deleteDessert(dessertId);
-        } catch (NullDessertIdException e) {
+        } catch (NullDessertIdException | InvaildDessertIdException e) {
             return -1;
         }
     }

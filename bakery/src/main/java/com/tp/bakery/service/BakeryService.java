@@ -25,7 +25,7 @@ public class BakeryService {
         return Dessertdao.getAllDesserts();
     }
 
-    public Dessert addDessert(Dessert dessert) throws NullDessertObjectException, NulllDessertNameException, NullDessertDescriptionException, NullDessertPriceException {
+    public Dessert addDessert(Dessert dessert) throws NullDessertObjectException, NulllDessertNameException, NullDessertDescriptionException, NullDessertPriceException, NullDessertImageException, InvalidDessertPriceException, InvalidDessertNameException, InvalidDessertDescriptionException, InvalidDessertImageException {
         return Dessertdao.addDessert(dessert);
 
     }
@@ -35,11 +35,11 @@ public class BakeryService {
     }
 
 
-    public int editDessert( Dessert dessert) throws NullDessertIdException, NullDessertObjectException,NulllDessertNameException, NullDessertDescriptionException,NullDessertPriceException {
+    public int editDessert( Dessert dessert) throws NullDessertIdException, NullDessertObjectException, NulllDessertNameException, NullDessertDescriptionException, NullDessertPriceException, NullDessertImageException {
         return Dessertdao.editDessert(dessert);
     }
 
-    public int deleteDessert(Integer dessertId) throws NullDessertIdException {
+    public int deleteDessert(Integer dessertId) throws NullDessertIdException, InvaildDessertIdException {
         return Dessertdao.deleteDessert(dessertId);
     }
 
@@ -73,7 +73,7 @@ public class BakeryService {
     }
 
     public int deleteOrder(Integer orderId) {
-        return Orderdao.deletOrder(orderId);
+        return Orderdao.deleteOrder(orderId);
     }
 
     public int editOrder(Order partialOrder) {

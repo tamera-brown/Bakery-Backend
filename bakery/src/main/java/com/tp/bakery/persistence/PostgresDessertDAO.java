@@ -2,7 +2,6 @@ package com.tp.bakery.persistence;
 
 import com.tp.bakery.execptions.*;
 import com.tp.bakery.model.Dessert;
-import com.tp.bakery.model.Order;
 import com.tp.bakery.persistence.mappers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -20,12 +19,13 @@ public class PostgresDessertDAO implements DessertDAO {
 
     @Override
     public List<Dessert> getAllDesserts() {
+
         List<Dessert> allDesserts=template.query("select \"dessertId\",\"dessertName\",\"dessertDescription\", \"dessertPrice\",\"dessertImg\" from \"Desserts\";",new DessertMapper());
         return allDesserts;
     }
 
     @Override
-    public Dessert addDessert(Dessert dessert) throws NullDessertObjectException, NulllDessertNameException, NullDessertDescriptionException, NullDessertPriceException {
+    public Dessert addDessert(Dessert dessert) throws NullDessertObjectException, NulllDessertNameException, NullDessertDescriptionException, NullDessertPriceException, NullDessertImageException,InvalidDessertPriceException {
         if(dessert==null){
             throw new NullDessertObjectException("Cannot add null dessert object");
         }
@@ -37,6 +37,12 @@ public class PostgresDessertDAO implements DessertDAO {
         }
         if(dessert.getPrice()==null){
             throw new NullDessertPriceException("Cannot add a dessert with null price");
+        }
+        if(dessert.getImage()==null){
+            throw  new NullDessertImageException("Cannot add a dessert with null image");
+        }
+        if(dessert.getPrice()<0){
+            throw  new InvalidDessertPriceException("Cannot add dessert with 0 price");
         }
         Integer dessertId=template.queryForObject("insert into \"Desserts\" (\"dessertName\",\"dessertDescription\",\"dessertPrice\",\"dessertImg\") values(?,?,?,?) returning \"dessertId\";\n" +
                 "\n",new IntegerMapper("dessertId"),dessert.getName(),dessert.getDescription(),dessert.getPrice(),dessert.getImage()) ;
@@ -60,7 +66,7 @@ public class PostgresDessertDAO implements DessertDAO {
     }
 
     @Override
-    public int editDessert( Dessert editdessert) throws NullDessertIdException, NullDessertObjectException, NullDessertDescriptionException,NulllDessertNameException,NullDessertPriceException{
+    public int editDessert( Dessert editdessert) throws NullDessertIdException, NullDessertObjectException, NullDessertDescriptionException,NulllDessertNameException,NullDessertPriceException, NullDessertImageException{
 
         if(editdessert==null){
             throw new NullDessertObjectException("Cannot edit dessert with null dessert");
@@ -77,6 +83,9 @@ public class PostgresDessertDAO implements DessertDAO {
         if(editdessert.getPrice()==null){
             throw new NullDessertPriceException("Cannot edit dessert with null price");
         }
+        if(editdessert.getImage()==null){
+            throw  new NullDessertImageException("Cannot edit a dessert with null image");
+        }
         int edited= template.update("update \"Desserts\"\n" +
                 "set \"dessertName\"=?, \"dessertDescription\"=?, \"dessertPrice\"=?, \"dessertImg\"=? \n" +
                 "where \"dessertId\"=?;",
@@ -90,19 +99,19 @@ public class PostgresDessertDAO implements DessertDAO {
 
     @Override
     public int deleteDessert(Integer dessertId) throws NullDessertIdException {
-        if(dessertId==null){
-            throw new NullDessertIdException("Cannot delete dessert with null id");
-        }
-        template.update("delete from \"DessertMenus\" where \"dessertId\"=?;",dessertId);
-        template.update("delete from \"Orders\" where \"dessertId\"=?;",dessertId);
-        int deleted=template.update("delete from \"Desserts\" where \"dessertId\"=?;",dessertId);
+            if (dessertId == null) {
+                throw new NullDessertIdException("Cannot delete dessert with null id");
+            }
+            template.update("delete from \"DessertMenus\" where \"dessertId\"=?;", dessertId);
+            template.update("delete from \"Orders\" where \"dessertId\"=?;", dessertId);
+            int deleted = template.update("delete from \"Desserts\" where \"dessertId\"=?;", dessertId);
 
 
-        return deleted;
+            return deleted;
+
+
 
     }
-
-
     @Override
     public void addDessertToMenu(Integer menuId, Integer dessertId) {
         template.update("insert into \"DessertMenus\"(\"menuId\",\"dessertId\")\n" +

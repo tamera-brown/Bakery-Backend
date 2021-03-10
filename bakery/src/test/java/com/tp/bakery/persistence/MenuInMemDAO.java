@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 @Profile("ServiceTesting")
 public class MenuInMemDAO implements MenuDAO {
+
     private List<Menu> allMenus = new ArrayList<>();
 
     @Override

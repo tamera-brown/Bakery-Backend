@@ -51,7 +51,7 @@ public class DessertPostgresDAOTests {
             assertEquals("Diced Pineapples in cream cheese icing", dessert.getDescription());
             assertEquals(16.00,dessert.getPrice());
             assertEquals("https://thestayathomechef.com/wp-content/uploads/2020/02/Pineapple-Upsidedown-Cake-7.jpg",dessert.getImage());
-        }catch (NullDessertObjectException | NulllDessertNameException | NullDessertDescriptionException | NullDessertIdException | NullDessertPriceException e){
+        }catch (NullDessertObjectException | NulllDessertNameException | NullDessertDescriptionException | NullDessertIdException | NullDessertPriceException | NullDessertImageException | InvalidDessertPriceException e){
             fail();
         }
 
@@ -66,6 +66,8 @@ public class DessertPostgresDAOTests {
         Dessert test= new Dessert();
         test.setName(null);
         test.setDescription("Cake with Butter Cream Icing");
+        test.setPrice(16.00);
+        test.setImage("https://www.brit.co/media-library/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbWFnZSI6Imh0dHBzOi8vYXNzZXRzLnJibC5tcy8yMTg5MzEyNS9vcmlnaW4uanBnIiwiZXhwaXJlc19hdCI6MTY3NTA0MzkyMn0.RSZCq8bh1oJdoe4FYxhd0MutXPsKy1CrWOF4T3Rb2l8/image.jpg?width=600&quality=85");
         assertThrows(NulllDessertNameException.class,()->toTest.addDessert(test));
     }
     @Test
@@ -73,6 +75,8 @@ public class DessertPostgresDAOTests {
         Dessert test= new Dessert();
         test.setName("Friut Cake");
         test.setDescription(null);
+        test.setPrice(16.00);
+        test.setImage("https://www.brit.co/media-library/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbWFnZSI6Imh0dHBzOi8vYXNzZXRzLnJibC5tcy8yMTg5MzEyNS9vcmlnaW4uanBnIiwiZXhwaXJlc19hdCI6MTY3NTA0MzkyMn0.RSZCq8bh1oJdoe4FYxhd0MutXPsKy1CrWOF4T3Rb2l8/image.jpg?width=600&quality=85");
         assertThrows(NullDessertDescriptionException.class,()->toTest.addDessert(test));
     }
     @Test
@@ -81,19 +85,22 @@ public class DessertPostgresDAOTests {
         test.setName("Strawberry Cheesecake");
         test.setDescription("Fresh Strawberries");
         test.setPrice(null);
+        test.setImage("https://www.brit.co/media-library/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbWFnZSI6Imh0dHBzOi8vYXNzZXRzLnJibC5tcy8yMTg5MzEyNS9vcmlnaW4uanBnIiwiZXhwaXJlc19hdCI6MTY3NTA0MzkyMn0.RSZCq8bh1oJdoe4FYxhd0MutXPsKy1CrWOF4T3Rb2l8/image.jpg?width=600&quality=85");
         assertThrows(NullDessertPriceException.class,()->toTest.addDessert(test));
     }
     @Test
     public void addDessertNullImageTest(){
-        
+        Dessert test=new Dessert();
+        test.setName("Chocolate Cake");
+        test.setDescription("Rich Chocolate");
+        test.setPrice(14.00);
+        test.setImage(null);
+        assertThrows(NullDessertImageException.class,()->toTest.addDessert(test));
     }
+
     @Test
-    public void deleteDessertGlodenPathTest() {
-        try{
-            toTest.deleteDessert(1);
-        } catch (NullDessertIdException e){
-            fail();
-        }
+    public void deleteDessertGlodenPathTest() throws NullDessertIdException {
+        toTest.deleteDessert(1);
     }
     @Test
     public void deleteDessertNullIdTest(){
@@ -126,7 +133,7 @@ public class DessertPostgresDAOTests {
             assertEquals("https://www.thespruceeats.com/thmb/y9Sj9blj6uM14YUdM6FlZv2dhEI=/2667x2000/smart/filters:no_upscale()/piece-of-yellow-cake-with-vanilla-frosting-186880544-57eade013df78c690fe89768.jpg",toTest.getAllDesserts().get(0).getImage());
 
 
-        } catch (NullDessertIdException | NullDessertObjectException | NulllDessertNameException | NullDessertDescriptionException | NullDessertPriceException e) {
+        } catch (NullDessertIdException | NullDessertObjectException | NulllDessertNameException | NullDessertDescriptionException | NullDessertPriceException | NullDessertImageException e) {
             fail();
         }
     }
@@ -136,6 +143,8 @@ public class DessertPostgresDAOTests {
         test.setName("Red Velvet Cake");
         test.setDescription("White Icing");
         test.setDessertId(null);
+        test.setPrice(12.00);
+        test.setImage("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-oreo-truffles-078-1544222424.jpg");
         assertThrows(NullDessertIdException.class,()->toTest.editDessert(test));
     }
     @Test
@@ -147,6 +156,8 @@ public class DessertPostgresDAOTests {
         Dessert test=toTest.getAllDesserts().get(0);
         test.setName(null);
         test.setDescription("Good");
+        test.setPrice(11.00);
+        test.setImage("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-oreo-truffles-078-1544222424.jpg");
         assertThrows(NulllDessertNameException.class,()->toTest.editDessert(test));
     }
     @Test
@@ -154,6 +165,8 @@ public class DessertPostgresDAOTests {
         Dessert test=toTest.getAllDesserts().get(0);
         test.setName("Strawberry Shortcake");
         test.setDescription(null);
+        test.setPrice(12.00);
+        test.setImage("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-oreo-truffles-078-1544222424.jpg");
         assertThrows(NullDessertDescriptionException.class,()->toTest.editDessert(test));
     }
     @Test
@@ -163,7 +176,20 @@ public class DessertPostgresDAOTests {
         test.setName("Cookie Cake");
         test.setDescription("Yummy");
         test.setPrice(null);
+        test.setImage("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-oreo-truffles-078-1544222424.jpg");
         assertThrows(NullDessertPriceException.class,()->toTest.editDessert(test));
+    }
+    @Test
+    public void editDeesertNullImage(){
+        Dessert test=new Dessert();
+        test.setDessertId(1);
+        test.setName("Fruit Cake");
+        test.setDescription("Fresh Fruit");
+        test.setPrice(17.00);
+        test.setImage(null);
+
+        assertThrows(NullDessertImageException.class,()->toTest.editDessert(test));
+
     }
 
 
