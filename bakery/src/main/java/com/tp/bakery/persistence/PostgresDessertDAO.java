@@ -129,6 +129,14 @@ public class PostgresDessertDAO implements DessertDAO {
 
     }
 
+    @Override
+    public Dessert getDessertByName(String dessertName) {
+        Dessert retrieved=template.queryForObject("select  \"dessertId\", \"dessertName\", \"dessertPrice\", \"dessertImg\", \"dessertDescription\" \n" +
+                "from \"Desserts\" where \"dessertName\"='"+dessertName+"';",new DessertMapper());
+
+        return retrieved;
+    }
+
 
 }
 

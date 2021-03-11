@@ -79,4 +79,8 @@ public class BakeryService {
     public int editOrder(Order partialOrder) {
         return Orderdao.editOrder(partialOrder);
     }
+
+    public Dessert getDessertByName(String dessertName) {
+        return Dessertdao.getDessertByName(dessertName);
+    }
 }

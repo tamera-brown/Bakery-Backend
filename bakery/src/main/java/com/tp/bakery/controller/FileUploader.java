@@ -18,14 +18,14 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 public class FileUploader {
     List<String> files = new ArrayList<String>();
-    private final Path rootLocation = Paths.get("/Users/tamerabrown/Desktop/Bakery-Frontend/AngularBakery/src/assets");
+    private final Path rootLocation = Paths.get("../assets");
 
     @PostMapping("/savefile")
     public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
         String message;
         try {
             try {
-                Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
+                Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getName()));
             } catch (Exception e) {
                 throw new RuntimeException("FAIL!");
             }

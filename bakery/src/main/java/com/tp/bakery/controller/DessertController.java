@@ -33,6 +33,11 @@ public class DessertController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+    @GetMapping("/dessert/name/{dessertName}")
+    public ResponseEntity getDessertByName(@PathVariable String dessertName){
+    Dessert retrieveDessert=service.getDessertByName(dessertName);
+    return ResponseEntity.ok(retrieveDessert);
+    }
 
     @PostMapping("/addDessert")
     public ResponseEntity addDessert(@RequestBody Dessert dessert) {

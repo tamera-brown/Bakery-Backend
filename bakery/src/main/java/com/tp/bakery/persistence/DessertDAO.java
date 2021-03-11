@@ -20,4 +20,6 @@ public interface DessertDAO {
     void addDessertToMenu(Integer menuId, Integer dessertId);
 
     int buyDessert(Integer dessertId);
+
+    Dessert getDessertByName(String dessertName);
 }

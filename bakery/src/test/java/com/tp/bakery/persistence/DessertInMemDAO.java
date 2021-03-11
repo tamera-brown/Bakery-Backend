@@ -120,4 +120,9 @@ public class DessertInMemDAO implements DessertDAO {
     public int buyDessert(Integer dessertId) {
         return 0;
     }
+
+    @Override
+    public Dessert getDessertByName(String dessertName) {
+        return null;
+    }
 }
